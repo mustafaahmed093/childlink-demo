@@ -1,0 +1,1079 @@
+/* ==========================================================================
+   Design System & Global Variables
+   ========================================================================== */
+:root {
+    --primary-color: #4f46e5;
+    --primary-light: #eef2ff;
+    --primary-hover: #4338ca;
+    
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-dark: #0f172a;
+    
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    
+    --border-light: #e2e8f0;
+    
+    --success: #10b981;
+    --success-light: rgba(16, 185, 129, 0.1);
+    --danger: #ef4444;
+    --danger-light: rgba(239, 68, 68, 0.1);
+    --warning: #f59e0b;
+    
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+    
+    --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-body);
+}
+
+body {
+    background-color: #f1f5f9;
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Desktop Mockup Container Layout
+   ========================================================================== */
+.desktop-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.desktop-info {
+    flex: 1;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    align-self: flex-start;
+}
+
+.badge-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.desktop-info h1 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--bg-dark);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.desktop-info p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.feat-item {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Smartphone Wrapper */
+.phone-device {
+    width: 410px;
+    height: 840px;
+    background-color: #000000;
+    border: 12px solid #1e293b;
+    border-radius: 48px;
+    box-shadow: var(--shadow-lg), 0 25px 50px -12px rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Camera Notch / Island Mockup */
+.phone-device::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 28px;
+    background-color: #000000;
+    border-radius: 20px;
+    z-index: 10001;
+}
+
+/* Speaker Grill Mockup */
+.phone-device::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 4px;
+    background-color: #27272a;
+    border-radius: 4px;
+    z-index: 10001;
+}
+
+/* Phone Screen Area */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-page);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: 44px; /* Space for the status bar */
+    padding-bottom: 30px; /* Space for home indicator bar */
+}
+
+/* Status Bar */
+.phone-status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    z-index: 10000;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.status-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.status-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* Phone Screen Navigation Bar */
+.phone-nav-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 9999;
+    padding-bottom: 5px;
+}
+
+.phone-nav-bar.hidden {
+    display: none !important;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: color var(--transition-normal);
+    width: 60px;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.nav-item span {
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.nav-item.active {
+    color: var(--primary-color);
+}
+
+/* iOS Home Indicator Bar */
+.phone-home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 5px;
+    background-color: var(--text-light);
+    border-radius: 10px;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Screen Transitions & Layouts
+   ========================================================================== */
+.app-screen {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.app-screen.active {
+    display: flex;
+}
+
+.screen-header {
+    padding: 1.5rem;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.screen-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--bg-dark);
+}
+
+.header-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   1. LOGIN SCREEN
+   ========================================================================== */
+#screen-login {
+    padding: 2rem 1.5rem;
+    justify-content: center;
+    gap: 2rem;
+    background: linear-gradient(180deg, var(--primary-light) 0%, var(--bg-page) 50%);
+}
+
+.login-header {
+    text-align: center;
+}
+
+.app-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+}
+
+.brand-logo svg {
+    width: 32px;
+    height: 32px;
+}
+
+.app-brand h2 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--bg-dark);
+    letter-spacing: -0.02em;
+    margin-top: 0.5rem;
+}
+
+.app-brand p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid var(--border-light);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: var(--bg-card);
+    transition: border-color var(--transition-normal);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-normal), transform 0.1s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-brand {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.btn-brand:hover {
+    background-color: var(--primary-hover);
+}
+
+.demo-credentials {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.demo-credentials h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.credentials-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cred-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.cred-label {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.cred-val {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* ==========================================================================
+   2. HOME / TRACKER SCREEN
+   ========================================================================== */
+#screen-home {
+    background-color: var(--bg-page);
+    height: 100%;
+}
+
+#screen-home .screen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 1.25rem;
+}
+
+.parent-greeting {
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.parent-greeting h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.child-quick-status {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 0.35rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.pulse-dot-online {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--success);
+    animation: indicator-pulse 1.5s infinite;
+}
+
+.map-wrapper {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.live-map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Leaflet control customization to shift it to top-left out of notch way */
+.leaflet-top {
+    top: 10px !important;
+}
+
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.leaflet-control-zoom a {
+    border-radius: 8px !important;
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+.child-overlay-card {
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+    right: 12px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.card-avatar {
+    flex-shrink: 0;
+}
+
+.avatar-ring {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px rgba(79, 70, 229, 0.15);
+}
+
+.avatar-placeholder {
+    width: 24px;
+    height: 24px;
+}
+
+.child-info-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.child-name-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.child-name-row h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.status-indicator {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+}
+
+.status-indicator.online {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.status-indicator.offline {
+    background-color: var(--danger-light);
+    color: var(--danger);
+}
+
+.address-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0.15rem 0;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.time-text {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+}
+
+.icon-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.icon-btn:hover {
+    color: var(--primary-color);
+    background-color: var(--primary-light);
+    border-color: rgba(79, 70, 229, 0.2);
+}
+
+/* Custom DivIcon Child Map Marker */
+.custom-child-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.child-marker-pin {
+    width: 32px;
+    height: 32px;
+    background-color: var(--primary-color);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+
+.child-marker-inner {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.child-marker-inner svg {
+    width: 14px;
+    height: 14px;
+}
+
+.child-marker-pulse {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(79, 70, 229, 0.2);
+    border-radius: 50%;
+    z-index: 1;
+    animation: marker-ripple-glow 2s infinite ease-out;
+}
+
+@keyframes marker-ripple-glow {
+    0% { transform: scale(0.3); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ==========================================================================
+   3. HISTORY SCREEN
+   ========================================================================== */
+#screen-history {
+    background-color: var(--bg-page);
+}
+
+.history-list-wrapper {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+}
+
+.history-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+    stroke-width: 1.5;
+    margin-bottom: 1rem;
+}
+
+.history-empty p {
+    font-size: 0.9rem;
+    max-width: 200px;
+}
+
+/* History Timeline Structure */
+.history-timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.history-timeline::before {
+    content: '';
+    position: absolute;
+    left: 4.5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background-color: var(--border-light);
+}
+
+.history-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.history-item::before {
+    content: '';
+    position: absolute;
+    left: -19.5px;
+    top: 7px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--border-light);
+    border: 2px solid var(--bg-page);
+    transition: background-color var(--transition-normal);
+}
+
+.history-item.newest::before {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.history-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.history-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.history-time {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.history-tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    background-color: var(--primary-light);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+.history-address {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.history-coords {
+    font-size: 0.7rem;
+    font-family: var(--font-body);
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   4. PROFILE SCREEN
+   ========================================================================== */
+#screen-profile {
+    background-color: var(--bg-page);
+}
+
+.profile-scroll-area {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.profile-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 0.4rem;
+}
+
+.profile-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-icon-wrapper svg {
+    width: 24px;
+    height: 24px;
+}
+
+.profile-details h4 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.profile-details p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.profile-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--success);
+    background-color: var(--success-light);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+}
+
+.child-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.child-avatar-large {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #ffffff;
+    box-shadow: var(--shadow-sm);
+}
+
+.child-avatar-large .avatar-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.child-stats h4 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.child-stats p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.device-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(0,0,0,0.02);
+    padding-bottom: 0.5rem;
+}
+
+.info-label {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.info-value {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.text-highlight {
+    color: var(--primary-color);
+}
+
+.btn-danger {
+    background-color: #ffffff;
+    color: var(--danger);
+    border: 1.5px solid var(--danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-light);
+}
+
+.btn-logout-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ==========================================================================
+   Toast Notification
+   ========================================================================== */
+.app-toast {
+    position: absolute;
+    top: 54px; /* Sits just under status bar */
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    padding: 0.5rem 1.25rem;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10005;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.app-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Responsive Media Queries
+   ========================================================================== */
+@media (max-width: 900px) {
+    .desktop-wrapper {
+        gap: 2rem;
+    }
+    .desktop-info h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* The Magic Responsive Bezel Collapse */
+@media (max-width: 768px) {
+    body {
+        background-color: var(--bg-page);
+    }
+    
+    .desktop-wrapper {
+        padding: 0;
+        min-height: 100vh;
+    }
+    
+    .desktop-info {
+        display: none !important; /* Hide background description entirely on real phones */
+    }
+    
+    .phone-device {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
+    .phone-device::before,
+    .phone-device::after {
+        display: none; /* Hide device frames on real phone viewports */
+    }
+    
+    .phone-screen {
+        padding-top: 0px; /* Safe space on desktop mock notch is omitted here */
+    }
+    
+    .app-screen {
+        padding-bottom: 80px; /* keep content visible above bottom nav on mobile */
+    }
+    
+    .history-list-wrapper,
+    .profile-scroll-area,
+    #screen-login {
+        padding-bottom: 80px;
+    }
+}
