@@ -1,0 +1,17 @@
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Node modules (if added later)
+node_modules/
+
+# Editor files
+.vscode/
+.idea/
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# GitHub workflow artifacts
+.github/
