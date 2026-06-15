@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Metadata -->
     <title>ChildLink - Parent Tracking App</title>
-    <meta name="description" content="A parent-friendly mobile location tracking app. Monitor your child's live location with ease. Built with Firebase and Leaflet.js.">
+    <meta name="description" content="Monitor your child's live location in real-time. Stay connected and keep your family safe.">
+    <meta name="theme-color" content="#4f46e5">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,230 +17,165 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     
     <!-- App Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-production.css">
 </head>
 <body>
 
-    <!-- Desktop Background Layout -->
-    <div class="desktop-wrapper">
-        <div class="desktop-info">
-            <div class="logo-badge">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="badge-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>ChildLink Safety Hub</span>
-            </div>
-            <h1>Child Tracker Mobile Demo</h1>
-            <p>This is a mobile-first tracking application designed for parents. On desktop screens, it displays inside a simulated smartphone frame to show the native mobile user experience. On mobile devices, it expands to fit the screen natively.</p>
-            <div class="features-list">
-                <div class="feat-item">🛡️ Secure Parent Credentials Login</div>
-                <div class="feat-item">📍 Real-time Leaflet & OpenStreetMap Live Link</div>
-                <div class="feat-item">🏡 Human-Readable Address Geocoding</div>
-                <div class="feat-item">⏳ Child Offline & "Last Seen" Status Tracking</div>
-                <div class="feat-item">📜 Interactive Location History Timeline</div>
-            </div>
-        </div>
+    <!-- Toast Notification -->
+    <div id="app-toast" class="app-toast"></div>
 
-        <!-- Simulated Smartphone Device Container -->
-        <div class="phone-device">
-            <!-- Screen Wrapper -->
-            <div class="phone-screen">
-                
-                <!-- Native Phone Status Bar Mock -->
-                <div class="phone-status-bar">
-                    <span class="time">9:41</span>
-                    <div class="status-icons">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="status-icon"><path d="M12 20h.01"/><path d="M8.5 16.5c3-3 7-3 10 0"/><path d="M5 13c5-5 11.5-5 16.5 0"/><path d="M1.5 9.5c7-7 16-7 23 0"/></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="status-icon"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+    <!-- Main App Container -->
+    <div class="app-container">
+        
+        <!-- LOGIN SCREEN -->
+        <section id="screen-login" class="app-screen active">
+            <div class="login-wrapper">
+                <div class="login-header">
+                    <div class="app-brand">
+                        <div class="brand-logo">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h1>ChildLink</h1>
+                        <p>Real-Time Child Tracking</p>
                     </div>
                 </div>
 
-                <!-- Toast Notification inside Phone Screen -->
-                <div id="app-toast" class="app-toast">Coordinates copied!</div>
-
-                <!-- 1. LOGIN SCREEN -->
-                <section id="screen-login" class="app-screen active">
-                    <div class="login-header">
-                        <div class="app-brand">
-                            <div class="brand-logo">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            </div>
-                            <h2>ChildLink</h2>
-                            <p>Keeping families connected, safely.</p>
-                        </div>
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="parent@example.com" required>
                     </div>
-
-                    <form id="login-form" class="login-form" onsubmit="return false;">
-                        <div class="form-group">
-                            <label for="email">Parent Email</label>
-                            <input type="email" id="email" placeholder="parent@childlink.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" placeholder="••••••••" required>
-                        </div>
-                        <button type="submit" id="btn-login" class="btn btn-brand">Sign In</button>
-                    </form>
-
-                    <div class="demo-credentials">
-                        <h4>Demo Account for Examiners</h4>
-                        <div class="credentials-box">
-                            <div class="cred-row">
-                                <span class="cred-label">Email:</span>
-                                <span class="cred-val">parent@childlink.com</span>
-                            </div>
-                            <div class="cred-row">
-                                <span class="cred-label">Password:</span>
-                                <span class="cred-val">password123</span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
                     </div>
-                </section>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
 
-                <!-- 2. HOME SCREEN -->
-                <section id="screen-home" class="app-screen">
-                    <!-- Home Header Area -->
-                    <div class="screen-header">
-                        <div class="parent-greeting">
-                            <span class="greeting-sub">Welcome Back</span>
-                            <h3 id="parent-greeting-name">Hello, Parent</h3>
-                        </div>
-                        <div class="header-action">
-                            <div class="child-quick-status">
-                                <span class="pulse-dot-online"></span>
-                                <span id="home-device-status-badge">Live</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Map Workspace -->
-                    <div class="map-wrapper">
-                        <div id="map" class="live-map"></div>
-                        
-                        <!-- Map Overlay Child Quick Details Card -->
-                        <div class="child-overlay-card">
-                            <div class="card-avatar">
-                                <div class="avatar-ring">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="avatar-placeholder"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                </div>
-                            </div>
-                            <div class="child-info-text">
-                                <div class="child-name-row">
-                                    <h4>Liam</h4>
-                                    <span id="child-connection-indicator" class="status-indicator online">Active Now</span>
-                                </div>
-                                <p id="child-address-text" class="address-text">Locating child...</p>
-                                <span id="child-time-text" class="time-text">Updated: just now</span>
-                            </div>
-                            <div class="card-actions">
-                                <button id="btn-recenter" class="icon-btn" title="Recenter Map">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-                                </button>
-                                <a id="btn-external-maps" href="#" target="_blank" class="icon-btn" title="Open in Navigation">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 3. HISTORY SCREEN -->
-                <section id="screen-history" class="app-screen">
-                    <div class="screen-header">
-                        <h2>Location History</h2>
-                        <p class="header-description">Recent locations recorded by your child's tracking device.</p>
-                    </div>
-                    
-                    <div class="history-list-wrapper">
-                        <div id="history-empty" class="history-empty hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="empty-icon"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-                            <p>No recent location history recorded yet.</p>
-                        </div>
-                        <div id="history-container" class="history-timeline">
-                            <!-- Injected by JavaScript -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 4. PROFILE SCREEN -->
-                <section id="screen-profile" class="app-screen">
-                    <div class="screen-header">
-                        <h2>Settings & Profiles</h2>
-                    </div>
-
-                    <div class="profile-scroll-area">
-                        <!-- Parent Profile Section -->
-                        <div class="profile-card">
-                            <div class="section-title">Parent Profile</div>
-                            <div class="profile-row">
-                                <div class="profile-icon-wrapper">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                </div>
-                                <div class="profile-details">
-                                    <h4 id="profile-parent-name">Fahad Rahman</h4>
-                                    <p id="profile-parent-email">parent@childlink.com</p>
-                                    <span class="profile-tag">Primary Account</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Child Device Profile Section -->
-                        <div class="profile-card">
-                            <div class="section-title">Child & Device Settings</div>
-                            
-                            <div class="child-profile-info">
-                                <div class="child-avatar-large">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="avatar-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                </div>
-                                <div class="child-stats">
-                                    <h4>Liam</h4>
-                                    <p>Age: 8 years old</p>
-                                    <span class="device-label">Tracker ID: #ESP32-GPS-6M</span>
-                                </div>
-                            </div>
-
-                            <div class="info-list">
-                                <div class="info-row">
-                                    <span class="info-label">Tracking Mode</span>
-                                    <span class="info-value text-highlight">Real-time (Live)</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Device Status</span>
-                                    <span id="profile-device-state" class="info-value">Connected</span>
-                                </div>
-                                <div class="info-row">
-                                    <span class="info-label">Battery Level</span>
-                                    <span class="info-value">85% 🔋</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Logout Button -->
-                        <button id="btn-logout" class="btn btn-danger">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-logout-icon"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                            <span>Sign Out</span>
-                        </button>
-                    </div>
-                </section>
-
-                <!-- Phone Bottom Navigation Bar (Hidden on Login screen) -->
-                <nav id="app-nav" class="phone-nav-bar">
-                    <button class="nav-item active" data-screen="screen-home">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="nav-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>
-                        <span>Tracker</span>
-                    </button>
-                    <button class="nav-item" data-screen="screen-history">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="nav-icon"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
-                        <span>History</span>
-                    </button>
-                    <button class="nav-item" data-screen="screen-profile">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="nav-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <span>Profile</span>
-                    </button>
-                </nav>
-
-                <!-- Phone Home Button Bar Indicator (Mock iOS Indicator) -->
-                <div class="phone-home-indicator"></div>
+                <div class="demo-hint">
+                    <small>Demo: parent@childlink.com / password123</small>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- HOME / TRACKER SCREEN -->
+        <section id="screen-home" class="app-screen">
+            <div class="screen-header">
+                <h2 id="parent-greeting-name">Welcome Back</h2>
+                <div class="header-status">
+                    <span class="pulse-dot-online"></span>
+                    <span id="home-device-status-badge">Live</span>
+                </div>
+            </div>
+
+            <div class="tracker-layout">
+                <div id="map" class="live-map"></div>
+                
+                <div class="child-card">
+                    <div class="child-header">
+                        <div class="child-avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <div>
+                            <h3>Liam</h3>
+                            <span id="child-connection-indicator" class="status-badge online">Active Now</span>
+                        </div>
+                    </div>
+
+                    <div class="child-details">
+                        <div class="detail">
+                            <span class="detail-label">Location</span>
+                            <span id="child-address-text" class="detail-value">Loading...</span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Updated</span>
+                            <span id="child-time-text" class="detail-value">just now</span>
+                        </div>
+                    </div>
+
+                    <div class="card-buttons">
+                        <button id="btn-recenter" class="btn-icon" title="Recenter">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                        <a id="btn-external-maps" href="#" target="_blank" class="btn-icon" title="Open in Maps">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORY SCREEN -->
+        <section id="screen-history" class="app-screen">
+            <div class="screen-header">
+                <h2>Location History</h2>
+            </div>
+            
+            <div class="history-wrapper">
+                <div id="history-empty" class="history-empty hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    <p>No location history yet</p>
+                </div>
+                <div id="history-container" class="history-list">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE SCREEN -->
+        <section id="screen-profile" class="app-screen">
+            <div class="screen-header">
+                <h2>Settings</h2>
+            </div>
+            
+            <div class="profile-wrapper">
+                <div class="info-card">
+                    <h3>Parent Account</h3>
+                    <div class="info-row">
+                        <span class="info-label">Name</span>
+                        <span id="profile-parent-name">Fahad Rahman</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span id="profile-parent-email">parent@childlink.com</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Child Information</h3>
+                    <div class="info-row">
+                        <span class="info-label">Name</span>
+                        <span>Liam</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Age</span>
+                        <span>8 years</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Device Status</span>
+                        <span id="profile-device-state">Connected</span>
+                    </div>
+                </div>
+
+                <button id="btn-logout" class="btn btn-danger">Sign Out</button>
+            </div>
+        </section>
+
+        <!-- Navigation Bar -->
+        <nav id="app-nav" class="app-nav hidden">
+            <button class="nav-item active" data-screen="screen-home">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>
+                <span>Tracker</span>
+            </button>
+            <button class="nav-item" data-screen="screen-history">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>History</span>
+            </button>
+            <button class="nav-item" data-screen="screen-profile">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Settings</span>
+            </button>
+        </nav>
     </div>
 
     <!-- Leaflet JS -->
